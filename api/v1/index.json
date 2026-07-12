@@ -1,0 +1,14 @@
+{
+ "product": "WattWindow",
+ "version": 1,
+ "updated": "2026-07-12T05:44:06.034Z",
+ "description": "UK half-hourly electricity price + carbon intensity, scored and optimised into the best times to draw power. Refreshed every 30 minutes.",
+ "docs": "https://kennethmacfadyen-globemaker.github.io/wattwindow/",
+ "endpoints": {
+  "index.json": "this file",
+  "regions.json": "list of the 14 DNO regions",
+  "regions/{DNO}.json": "full series + optimal windows for one region (A-P)",
+  "best.json": "current conditions + best 2h window, all regions",
+  "national.json": "GB-wide carbon intensity series"
+ }
+}
