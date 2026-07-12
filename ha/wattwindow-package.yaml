@@ -1,0 +1,66 @@
+# WattWindow — Home Assistant package
+# https://kennethmacfadyen-globemaker.github.io/wattwindow/
+#
+# 1. Change the region letter in the resource URL below (C = London).
+#    Find yours: first two digits of the "S" number on your electricity bill —
+#    10=A 11=B 12=C 13=D 14=E 15=F 16=G 17=P 18=N 19=J 20=H 21=K 22=L 23=M
+# 2. Drop this file into <config>/packages/ (enable packages in configuration.yaml:
+#    homeassistant: { packages: !include_dir_named packages })
+# 3. Point the automation at your own switch entity.
+
+rest:
+  - resource: https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/regions/C.json
+    scan_interval: 900
+    sensor:
+      - name: "WattWindow score"
+        unique_id: wattwindow_score
+        value_template: "{{ value_json.current.score }}"
+        icon: mdi:lightning-bolt
+
+      - name: "WattWindow price now"
+        unique_id: wattwindow_price_now
+        unit_of_measurement: "p/kWh"
+        value_template: "{{ value_json.current.price }}"
+        icon: mdi:currency-gbp
+
+      - name: "WattWindow carbon now"
+        unique_id: wattwindow_carbon_now
+        unit_of_measurement: "gCO2/kWh"
+        value_template: "{{ value_json.current.carbon }}"
+        icon: mdi:molecule-co2
+
+      - name: "WattWindow best 2h window starts"
+        unique_id: wattwindow_best_2h_start
+        value_template: "{{ value_json.windows['2h'].best.from }}"
+        icon: mdi:clock-outline
+
+      - name: "WattWindow best 2h avg price"
+        unique_id: wattwindow_best_2h_price
+        unit_of_measurement: "p/kWh"
+        value_template: "{{ value_json.windows['2h'].best.avgPrice }}"
+
+# Example automation: run a switch during good half-hours, off during bad ones.
+# Replace switch.dishwasher with your entity, tune the thresholds to taste.
+automation:
+  - alias: "WattWindow: run during cheap/green power"
+    id: wattwindow_cheap_green_run
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.wattwindow_score
+        above: 74
+    condition: []
+    action:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.dishwasher
+
+  - alias: "WattWindow: pause during expensive power"
+    id: wattwindow_expensive_pause
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.wattwindow_score
+        below: 35
+    action:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.dishwasher

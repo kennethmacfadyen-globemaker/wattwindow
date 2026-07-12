@@ -24,21 +24,23 @@ const OUT = join(ROOT, "api", "v1");
 const AGILE_PRODUCT = "AGILE-24-10-01";
 
 // Octopus DNO letter ↔ Carbon Intensity regionid ↔ human name
+// mpan = the first two digits of the supply number (bottom-left "S" box) on any
+// UK electricity bill — the canonical way for a user to identify their region.
 const REGIONS = [
-  { letter: "A", carbonId: 10, name: "Eastern England" },
-  { letter: "B", carbonId: 9,  name: "East Midlands" },
-  { letter: "C", carbonId: 13, name: "London" },
-  { letter: "D", carbonId: 6,  name: "Merseyside & North Wales" },
-  { letter: "E", carbonId: 8,  name: "West Midlands" },
-  { letter: "F", carbonId: 4,  name: "North East England" },
-  { letter: "G", carbonId: 3,  name: "North West England" },
-  { letter: "H", carbonId: 12, name: "Southern England" },
-  { letter: "J", carbonId: 14, name: "South East England" },
-  { letter: "K", carbonId: 7,  name: "South Wales" },
-  { letter: "L", carbonId: 11, name: "South West England" },
-  { letter: "M", carbonId: 5,  name: "Yorkshire" },
-  { letter: "N", carbonId: 2,  name: "South Scotland" },
-  { letter: "P", carbonId: 1,  name: "North Scotland" }
+  { letter: "A", carbonId: 10, mpan: "10", name: "Eastern England" },
+  { letter: "B", carbonId: 9,  mpan: "11", name: "East Midlands" },
+  { letter: "C", carbonId: 13, mpan: "12", name: "London" },
+  { letter: "D", carbonId: 6,  mpan: "13", name: "Merseyside & North Wales" },
+  { letter: "E", carbonId: 8,  mpan: "14", name: "West Midlands" },
+  { letter: "F", carbonId: 4,  mpan: "15", name: "North East England" },
+  { letter: "G", carbonId: 3,  mpan: "16", name: "North West England" },
+  { letter: "H", carbonId: 12, mpan: "20", name: "Southern England" },
+  { letter: "J", carbonId: 14, mpan: "19", name: "South East England" },
+  { letter: "K", carbonId: 7,  mpan: "21", name: "South Wales" },
+  { letter: "L", carbonId: 11, mpan: "22", name: "South West England" },
+  { letter: "M", carbonId: 5,  mpan: "23", name: "Yorkshire" },
+  { letter: "N", carbonId: 2,  mpan: "18", name: "South Scotland" },
+  { letter: "P", carbonId: 1,  mpan: "17", name: "North Scotland" }
 ];
 
 const DURATIONS = [1, 2, 3, 4, 6, 8]; // hours
@@ -204,7 +206,7 @@ async function main() {
 
   await writeFile(join(OUT, "regions.json"), JSON.stringify({
     meta: { product: "WattWindow", version: 1, updated },
-    regions: REGIONS.map((r) => ({ dno: r.letter, name: r.name, endpoint: `regions/${r.letter}.json` }))
+    regions: REGIONS.map((r) => ({ dno: r.letter, mpanPrefix: r.mpan, name: r.name, endpoint: `regions/${r.letter}.json` }))
   }, null, 1));
 
   await writeFile(join(OUT, "index.json"), JSON.stringify({

@@ -139,6 +139,7 @@ rest:
         value_template: "{{ value_json.windows['2h'].best.from }}"
 
 <span class="c"># then automate: if score ≥ 75 → turn on the immersion heater</span></code></pre>
+      <p class="small muted">Or skip the typing: <a href="ha/wattwindow-package.yaml" download>download the ready-made package</a> — five sensors + two example automations, drop it in <code>packages/</code> and change one letter.</p>
     </div>
   </section>
 
@@ -198,7 +199,9 @@ rest:
     <details><summary>What if I'm not on Agile?</summary><p>The carbon signal and the shape of the price curve are still the best available proxy for when the grid is under- or over-supplied. Flat-tariff users cut carbon (and grid stress) by shifting; Agile users cut real money.</p></details>
     <details><summary>How fresh is it?</summary><p>A pipeline regenerates every endpoint every 30 minutes (the <code>meta.updated</code> field tells you exactly when). Octopus publishes tomorrow's prices around 16:00 UK, so the horizon grows through the afternoon.</p></details>
     <details><summary>Uptime? SLA?</summary><p>Endpoints are static files on GitHub's global CDN — there is no server to fall over. If GitHub Pages is up (it very reliably is), WattWindow is up. The commercial licence is honesty-priced accordingly.</p></details>
-    <details><summary>Can I get postcodes instead of regions?</summary><p>Your DNO region is what your electricity is actually priced by. <code>regions.json</code> lists all 14; if you're unsure, your electricity bill or postcode-to-DNO lookup tables (freely available) will tell you.</p></details>
+    <details><summary>Which region am I? (30-second answer)</summary><p>Look at any electricity bill for the boxed “Supply Number” (MPAN) — the <strong>first two digits</strong> are your region, definitively:</p>
+    <p><code>10</code>→A Eastern England · <code>11</code>→B East Midlands · <code>12</code>→C London · <code>13</code>→D Merseyside &amp; N.&nbsp;Wales · <code>14</code>→E West Midlands · <code>15</code>→F North East · <code>16</code>→G North West · <code>17</code>→P North Scotland · <code>18</code>→N South Scotland · <code>19</code>→J South East · <code>20</code>→H Southern · <code>21</code>→K South Wales · <code>22</code>→L South West · <code>23</code>→M Yorkshire</p>
+    <p>The mapping also ships in <code>regions.json</code> as <code>mpanPrefix</code>, so your app can do this for your users. (Postcodes don't map cleanly to DNO boundaries — the MPAN is the ground truth.)</p></details>
   </section>
 </main>
 
