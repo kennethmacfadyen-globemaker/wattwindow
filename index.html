@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WattWindow — the UK “when to run it” energy API. Price + carbon, scored & optimised, free JSON</title>
+<meta name="description" content="One JSON API that joins Octopus Agile half-hourly prices with National Grid carbon intensity for all 14 UK regions, scores every half-hour, and returns the best windows to run appliances. Refreshed every 30 minutes. Free for personal use.">
+<link rel="canonical" href="https://kennethmacfadyen-globemaker.github.io/wattwindow/">
+<meta property="og:title" content="WattWindow — the UK “when to run it” energy API">
+<meta property="og:description" content="Agile prices × carbon intensity → scored half-hours and optimal appliance windows, per region, as plain JSON. Free for personal use.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="mark" href="./">watt<b>window</b><span class="cursor">_</span></a>
+    <nav>
+      <a href="#demo">Live</a>
+      <a href="#endpoints">Endpoints</a>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#maths">The maths</a>
+      <a href="#pricing">Licence</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero wrap">
+    <p class="pill" id="hero-pill">● live · refreshed every 30 minutes</p>
+    <h1>The UK <em>“when&nbsp;to&nbsp;run&nbsp;it”</em> API.</h1>
+    <p class="lede">Half-hourly electricity prices (Octopus&nbsp;Agile) joined with grid carbon intensity (National&nbsp;Grid&nbsp;ESO) for all 14 UK regions — normalised onto one score, run through a window optimiser, and served as plain JSON you can hit from anything. No keys. No SDK. One GET.</p>
+
+    <div class="term" id="hero-term">
+      <div class="term-bar"><span></span><span></span><span></span><em>terminal</em></div>
+      <pre><code><span class="p">$</span> curl -s https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/regions/C.json \
+    | jq '.windows["2h"].best'
+<span class="out" id="hero-out">{
+  "from":            "…fetching live data…"
+}</span></code></pre>
+    </div>
+    <p class="hero-note">That's a real endpoint — the answer above is live. Wire it to a smart plug and your tumble dryer starts costing less.</p>
+  </section>
+
+  <!-- ================= LIVE DEMO ================= -->
+  <section class="demo wrap" id="demo">
+    <h2><span class="hash">#</span> Right now, across the country</h2>
+    <div class="demo-head">
+      <label for="region-pick">Region</label>
+      <select id="region-pick"></select>
+      <span class="updated" id="demo-updated"></span>
+    </div>
+    <div class="demo-grid">
+      <div class="stat-card"><p class="stat-k">Price now</p><p class="stat-v" id="d-price">—</p><p class="stat-s">p/kWh inc. VAT</p></div>
+      <div class="stat-card"><p class="stat-k">Carbon now</p><p class="stat-v" id="d-carbon">—</p><p class="stat-s">gCO₂/kWh</p></div>
+      <div class="stat-card"><p class="stat-k">Score now</p><p class="stat-v" id="d-score">—</p><p class="stat-s">0–100, higher = run it now</p></div>
+      <div class="stat-card best"><p class="stat-k">Best 2h window</p><p class="stat-v" id="d-window">—</p><p class="stat-s" id="d-window-sub">next 24h, this region</p></div>
+    </div>
+    <div class="chart-box">
+      <div id="d-chart" class="chart"></div>
+      <p class="chart-note">Each bar is a half-hour; height &amp; colour follow the WattWindow score. Hover for price/carbon. Data: this page calls the same public endpoints you would.</p>
+    </div>
+  </section>
+
+  <!-- ================= ENDPOINTS ================= -->
+  <section class="endpoints wrap" id="endpoints">
+    <h2><span class="hash">#</span> Endpoints</h2>
+    <p class="base">Base: <code>https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/</code></p>
+    <table>
+      <tr><th>GET</th><th>Returns</th><th>Size</th></tr>
+      <tr><td><code>regions/{DNO}.json</code></td><td>Full product for one region: current conditions + generation mix, scored half-hour series, and optimal <code>best / cheapest / greenest</code> windows for 1–8&nbsp;h durations. DNO letters A–P.</td><td>~14&nbsp;KB</td></tr>
+      <tr><td><code>best.json</code></td><td>Dashboard view: current price/carbon/score and the best 2h window for all 14 regions in one call.</td><td>~4&nbsp;KB</td></tr>
+      <tr><td><code>regions.json</code></td><td>The 14 DNO regions with names and endpoint paths.</td><td>~1&nbsp;KB</td></tr>
+      <tr><td><code>national.json</code></td><td>GB-wide carbon intensity series (prices are inherently regional).</td><td>~6&nbsp;KB</td></tr>
+      <tr><td><code>index.json</code></td><td>Machine-readable directory of the above.</td><td>&lt;1&nbsp;KB</td></tr>
+    </table>
+    <p class="small muted">Served from a global CDN with <code>Access-Control-Allow-Origin: *</code> — call it straight from a browser, a Pi, an ESP32, or a cron job. Also described in <a href="openapi.yaml">openapi.yaml</a>.</p>
+  </section>
+
+  <!-- ================= QUICKSTART ================= -->
+  <section class="quickstart wrap" id="quickstart">
+    <h2><span class="hash">#</span> Quickstart</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-t="curl">curl</button>
+      <button class="tab" data-t="js">JavaScript</button>
+      <button class="tab" data-t="py">Python</button>
+      <button class="tab" data-t="ha">Home Assistant</button>
+    </div>
+
+    <div class="tabpane on" data-t="curl">
+      <pre><code><span class="c"># The best 3-hour window to charge in London (region C)</span>
+curl -s https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/regions/C.json \
+  | jq '.windows["3h"].best'
+
+<span class="c"># Cheapest region to be in right now</span>
+curl -s https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/best.json \
+  | jq '.regions | min_by(.now.price) | {region, price: .now.price}'</code></pre>
+    </div>
+
+    <div class="tabpane" data-t="js">
+      <pre><code><span class="c">// Should the dishwasher start now, or wait?</span>
+const BASE = "https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1";
+const { current, windows } = await (await fetch(`${BASE}/regions/C.json`)).json();
+
+const w = windows["2h"].best;
+if (current.score >= 75) {
+  console.log(`Run it now — score ${current.score}, ${current.price}p/kWh`);
+} else {
+  console.log(`Wait until ${w.from} (avg ${w.avgPrice}p/kWh, saves ${w.savingsVsAvgPct}%)`);
+}</code></pre>
+    </div>
+
+    <div class="tabpane" data-t="py">
+      <pre><code><span class="c"># Nightly EV charge: pick the cheapest 4-hour window</span>
+import requests
+
+BASE = "https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1"
+data = requests.get(f"{BASE}/regions/M.json", timeout=10).json()  <span class="c"># M = Yorkshire</span>
+
+w = data["windows"]["4h"]["cheapest"]
+print(f"Charge {w['from']} → {w['to']}  ({w['avgPrice']}p/kWh, {w['avgCarbon']}g CO₂)")</code></pre>
+    </div>
+
+    <div class="tabpane" data-t="ha">
+      <pre><code><span class="c"># configuration.yaml — two sensors and you're done</span>
+rest:
+  - resource: https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1/regions/C.json
+    scan_interval: 900
+    sensor:
+      - name: "WattWindow score"
+        value_template: "{{ value_json.current.score }}"
+      - name: "Best 2h window starts"
+        value_template: "{{ value_json.windows['2h'].best.from }}"
+
+<span class="c"># then automate: if score ≥ 75 → turn on the immersion heater</span></code></pre>
+    </div>
+  </section>
+
+  <!-- ================= MATHS ================= -->
+  <section class="maths wrap" id="maths">
+    <h2><span class="hash">#</span> The maths, in the open</h2>
+    <div class="math-grid">
+      <div class="math-card">
+        <h3>1 · Join</h3>
+        <p>Every half-hour where both an Agile price and a regional carbon forecast exist is joined on its UTC boundary — typically 33–90 half-hours of horizon depending on when Octopus publishes tomorrow's prices (~16:00 UK).</p>
+      </div>
+      <div class="math-card">
+        <h3>2 · Score</h3>
+        <p><code>score = 100 − (0.6·P + 0.4·C)</code> where <code>P</code> and <code>C</code> are the price and carbon <em>percentile ranks</em> across the visible horizon. Percentiles, not raw values — so the score stays meaningful whether it's a windy bank holiday or a still January evening.</p>
+      </div>
+      <div class="math-card">
+        <h3>3 · Optimise</h3>
+        <p>A sliding window over the series finds, for each duration (1–8h), the contiguous run with the best average score, lowest average price, and lowest average carbon — three answers, because “best” depends on whether you're paying or the planet is.</p>
+      </div>
+    </div>
+    <p class="small muted">Weights favour price 60/40 because that's what moves behaviour — but both raw series ship in every response, so you can re-weight to taste. The pipeline source is public in the repo.</p>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section class="pricing wrap" id="pricing">
+    <h2><span class="hash">#</span> Licence &amp; pricing</h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Personal</h3>
+        <p class="price">£0</p>
+        <ul>
+          <li>Home automation, hobby projects, research</li>
+          <li>All endpoints, full rate — it's a CDN, hammer away politely</li>
+          <li>Attribution appreciated: “data via WattWindow”</li>
+        </ul>
+        <a class="btn-line" href="#quickstart">Start with the quickstart</a>
+      </div>
+      <div class="price-card featured">
+        <h3>Commercial</h3>
+        <p class="price">£29<span>/year</span></p>
+        <ul>
+          <li>Use in a product, app, or anything that bills someone</li>
+          <li>Same endpoints — this is a licence, not a paywall</li>
+          <li>Priority on feature requests (new durations, regions, weights)</li>
+          <li>A clear conscience and a receipt</li>
+        </ul>
+        <a class="btn-solid" href="https://www.buymeacoffee.com/globemaker" target="_blank" rel="noopener">Buy a commercial licence →</a>
+        <p class="small muted">Honour-system via Buy Me a Coffee — mention “WattWindow” in the note. Need an invoice or custom terms? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-93kY-jagA7ZB-U9bLWbA0I6XwmINco6NWrNfkGln5kHT_w/viewform?usp=dialog" target="_blank" rel="noopener">Get in touch</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="faq wrap">
+    <h2><span class="hash">#</span> Questions</h2>
+    <details><summary>Why trust the numbers?</summary><p>Prices come from Octopus Energy's public Agile tariff feed (the same figures Agile customers are billed on); carbon comes from National Grid ESO's official forecast. WattWindow adds the join, the normalisation and the optimiser — the raw values pass through untouched, and both raw series are in every response so you can check.</p></details>
+    <details><summary>What if I'm not on Agile?</summary><p>The carbon signal and the shape of the price curve are still the best available proxy for when the grid is under- or over-supplied. Flat-tariff users cut carbon (and grid stress) by shifting; Agile users cut real money.</p></details>
+    <details><summary>How fresh is it?</summary><p>A pipeline regenerates every endpoint every 30 minutes (the <code>meta.updated</code> field tells you exactly when). Octopus publishes tomorrow's prices around 16:00 UK, so the horizon grows through the afternoon.</p></details>
+    <details><summary>Uptime? SLA?</summary><p>Endpoints are static files on GitHub's global CDN — there is no server to fall over. If GitHub Pages is up (it very reliably is), WattWindow is up. The commercial licence is honesty-priced accordingly.</p></details>
+    <details><summary>Can I get postcodes instead of regions?</summary><p>Your DNO region is what your electricity is actually priced by. <code>regions.json</code> lists all 14; if you're unsure, your electricity bill or postcode-to-DNO lookup tables (freely available) will tell you.</p></details>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>WattWindow</b> — an independent product by <a href="https://kennethmacfadyen-globemaker.github.io/">Kenneth (globemaker)</a>. Not affiliated with Octopus Energy or National Grid ESO.</p>
+    <p class="small">Carbon Intensity data © National Grid ESO (CC-BY-4.0) · Agile prices via Octopus Energy's public API · Pipeline &amp; site source on <a href="https://github.com/kennethmacfadyen-globemaker/wattwindow">GitHub</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-93kY-jagA7ZB-U9bLWbA0I6XwmINco6NWrNfkGln5kHT_w/viewform?usp=dialog">Feedback</a></p>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

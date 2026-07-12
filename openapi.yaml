@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: WattWindow
+  version: "1.0"
+  description: >
+    UK half-hourly electricity prices (Octopus Agile public feed) joined with
+    National Grid ESO carbon intensity for all 14 DNO regions, normalised onto
+    a 0-100 score and optimised into the best contiguous windows to draw power.
+    Static JSON on a global CDN, regenerated every 30 minutes. Free for
+    personal use; commercial use requires a licence (see /#pricing).
+  contact:
+    url: https://kennethmacfadyen-globemaker.github.io/wattwindow/
+servers:
+  - url: https://kennethmacfadyen-globemaker.github.io/wattwindow/api/v1
+paths:
+  /index.json:
+    get:
+      summary: Machine-readable directory of endpoints
+      responses: { "200": { description: OK } }
+  /regions.json:
+    get:
+      summary: The 14 DNO regions with names and endpoint paths
+      responses: { "200": { description: OK } }
+  /best.json:
+    get:
+      summary: Current conditions and best 2h window for every region
+      responses: { "200": { description: OK } }
+  /national.json:
+    get:
+      summary: GB-wide carbon intensity series (carbon only)
+      responses: { "200": { description: OK } }
+  /regions/{dno}.json:
+    get:
+      summary: Full scored series and optimal windows for one region
+      parameters:
+        - name: dno
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [A, B, C, D, E, F, G, H, J, K, L, M, N, P]
+          description: DNO region letter (e.g. C = London, M = Yorkshire)
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { type: object }
+                  current:
+                    type: object
+                    description: The half-hour we are in now, plus generation mix
+                  windows:
+                    type: object
+                    description: >
+                      Keys 1h,2h,3h,4h,6h,8h; each holds best / cheapest /
+                      greenest contiguous windows with avgPrice (p/kWh),
+                      avgCarbon (gCO2/kWh), score and savingsVsAvgPct.
+                  series:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        from: { type: string, format: date-time }
+                        to: { type: string, format: date-time }
+                        price: { type: number, description: p/kWh inc. VAT }
+                        carbon: { type: number, description: gCO2/kWh forecast }
+                        score: { type: integer, minimum: 0, maximum: 100 }
+                        label: { type: string, enum: [excellent, good, fair, poor] }
