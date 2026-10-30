@@ -4,8 +4,8 @@
   "version": 1,
   "region": "London",
   "dno": "C",
-  "updated": "2026-10-30T08:32:34.300Z",
-  "horizonHalfHours": 29,
+  "updated": "2026-10-30T15:18:41.296Z",
+  "horizonHalfHours": 16,
   "units": {
    "price": "p/kWh inc. VAT (Octopus Agile)",
    "carbon": "gCO2/kWh (forecast)",
@@ -18,415 +18,311 @@
   "licence": "Free for personal & non-commercial use with attribution. Commercial use requires a licence — see https://kennethmacfadyen-globemaker.github.io/wattwindow/#pricing"
  },
  "current": {
-  "from": "2026-10-30T08:30Z",
-  "to": "2026-10-30T09:00Z",
-  "price": 41.58,
-  "carbon": 240,
-  "score": 24,
-  "label": "poor",
-  "renewablesPct": 15,
+  "from": "2026-10-30T15:00Z",
+  "to": "2026-10-30T15:30Z",
+  "price": 34.66,
+  "carbon": 200,
+  "score": 100,
+  "label": "excellent",
+  "renewablesPct": 22,
   "mix": {
-   "biomass": 10.4,
+   "biomass": 8.2,
    "coal": 0,
-   "imports": 2.3,
-   "gas": 57.7,
-   "nuclear": 15,
+   "imports": 9.7,
+   "gas": 47,
+   "nuclear": 13.2,
    "other": 0,
    "hydro": 0.1,
-   "solar": 4.1,
-   "wind": 10.4
+   "solar": 12.2,
+   "wind": 9.5
   }
  },
  "windows": {
   "1h": {
    "best": {
-    "from": "2026-10-30T11:30Z",
-    "to": "2026-10-30T12:30Z",
-    "avgPrice": 31.58,
-    "avgCarbon": 178,
-    "score": 95,
-    "savingsVsAvgPct": 23
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T16:00Z",
+    "avgPrice": 35.95,
+    "avgCarbon": 215,
+    "score": 96,
+    "savingsVsAvgPct": 24
    },
    "cheapest": {
-    "from": "2026-10-30T11:00Z",
-    "to": "2026-10-30T12:00Z",
-    "avgPrice": 31.49,
-    "avgCarbon": 182,
-    "score": 95,
-    "savingsVsAvgPct": 23
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T16:00Z",
+    "avgPrice": 35.95,
+    "avgCarbon": 215,
+    "score": 96,
+    "savingsVsAvgPct": 24
    },
    "greenest": {
-    "from": "2026-10-30T12:00Z",
-    "to": "2026-10-30T13:00Z",
-    "avgPrice": 32.08,
-    "avgCarbon": 176,
-    "score": 93,
-    "savingsVsAvgPct": 22
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T16:00Z",
+    "avgPrice": 35.95,
+    "avgCarbon": 215,
+    "score": 96,
+    "savingsVsAvgPct": 24
    }
   },
   "2h": {
    "best": {
-    "from": "2026-10-30T11:00Z",
-    "to": "2026-10-30T13:00Z",
-    "avgPrice": 31.78,
-    "avgCarbon": 179,
-    "score": 94,
-    "savingsVsAvgPct": 23
+    "from": "2026-10-30T21:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 37.91,
+    "avgCarbon": 226,
+    "score": 76,
+    "savingsVsAvgPct": 20
    },
    "cheapest": {
-    "from": "2026-10-30T10:30Z",
-    "to": "2026-10-30T12:30Z",
-    "avgPrice": 31.61,
-    "avgCarbon": 183,
-    "score": 92,
-    "savingsVsAvgPct": 23
+    "from": "2026-10-30T21:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 37.91,
+    "avgCarbon": 226,
+    "score": 76,
+    "savingsVsAvgPct": 20
    },
    "greenest": {
-    "from": "2026-10-30T11:30Z",
-    "to": "2026-10-30T13:30Z",
-    "avgPrice": 32.27,
-    "avgCarbon": 177,
-    "score": 91,
-    "savingsVsAvgPct": 22
+    "from": "2026-10-30T21:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 37.91,
+    "avgCarbon": 226,
+    "score": 76,
+    "savingsVsAvgPct": 20
    }
   },
   "3h": {
    "best": {
-    "from": "2026-10-30T10:30Z",
-    "to": "2026-10-30T13:30Z",
-    "avgPrice": 32.06,
-    "avgCarbon": 181,
-    "score": 91,
-    "savingsVsAvgPct": 22
+    "from": "2026-10-30T20:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 38.9,
+    "avgCarbon": 230,
+    "score": 71,
+    "savingsVsAvgPct": 18
    },
    "cheapest": {
-    "from": "2026-10-30T10:00Z",
-    "to": "2026-10-30T13:00Z",
-    "avgPrice": 31.96,
-    "avgCarbon": 184,
-    "score": 90,
-    "savingsVsAvgPct": 22
+    "from": "2026-10-30T20:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 38.9,
+    "avgCarbon": 230,
+    "score": 71,
+    "savingsVsAvgPct": 18
    },
    "greenest": {
-    "from": "2026-10-30T11:00Z",
-    "to": "2026-10-30T14:00Z",
-    "avgPrice": 32.38,
-    "avgCarbon": 179,
-    "score": 89,
-    "savingsVsAvgPct": 21
+    "from": "2026-10-30T20:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 38.9,
+    "avgCarbon": 230,
+    "score": 71,
+    "savingsVsAvgPct": 18
    }
   },
   "4h": {
    "best": {
-    "from": "2026-10-30T10:00Z",
-    "to": "2026-10-30T14:00Z",
-    "avgPrice": 32.36,
-    "avgCarbon": 182,
-    "score": 87,
-    "savingsVsAvgPct": 21
+    "from": "2026-10-30T19:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 40.81,
+    "avgCarbon": 234,
+    "score": 64,
+    "savingsVsAvgPct": 14
    },
    "cheapest": {
-    "from": "2026-10-30T09:30Z",
-    "to": "2026-10-30T13:30Z",
-    "avgPrice": 32.33,
-    "avgCarbon": 186,
-    "score": 87,
-    "savingsVsAvgPct": 21
+    "from": "2026-10-30T19:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 40.81,
+    "avgCarbon": 234,
+    "score": 64,
+    "savingsVsAvgPct": 14
    },
    "greenest": {
-    "from": "2026-10-30T10:30Z",
-    "to": "2026-10-30T14:30Z",
-    "avgPrice": 32.49,
-    "avgCarbon": 182,
-    "score": 86,
-    "savingsVsAvgPct": 21
+    "from": "2026-10-30T19:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 40.81,
+    "avgCarbon": 234,
+    "score": 64,
+    "savingsVsAvgPct": 14
    }
   },
   "6h": {
    "best": {
-    "from": "2026-10-30T09:30Z",
-    "to": "2026-10-30T15:30Z",
-    "avgPrice": 32.92,
-    "avgCarbon": 190,
-    "score": 80,
-    "savingsVsAvgPct": 20
+    "from": "2026-10-30T17:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.42,
+    "avgCarbon": 244,
+    "score": 47,
+    "savingsVsAvgPct": 0
    },
    "cheapest": {
-    "from": "2026-10-30T09:30Z",
-    "to": "2026-10-30T15:30Z",
-    "avgPrice": 32.92,
-    "avgCarbon": 190,
-    "score": 80,
-    "savingsVsAvgPct": 20
+    "from": "2026-10-30T17:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.42,
+    "avgCarbon": 244,
+    "score": 47,
+    "savingsVsAvgPct": 0
    },
    "greenest": {
-    "from": "2026-10-30T09:30Z",
-    "to": "2026-10-30T15:30Z",
-    "avgPrice": 32.92,
-    "avgCarbon": 190,
-    "score": 80,
-    "savingsVsAvgPct": 20
+    "from": "2026-10-30T17:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.42,
+    "avgCarbon": 244,
+    "score": 47,
+    "savingsVsAvgPct": 0
    }
   },
   "8h": {
    "best": {
-    "from": "2026-10-30T08:30Z",
-    "to": "2026-10-30T16:30Z",
-    "avgPrice": 35.29,
-    "avgCarbon": 201,
-    "score": 68,
-    "savingsVsAvgPct": 14
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.27,
+    "avgCarbon": 242,
+    "score": 50,
+    "savingsVsAvgPct": 0
    },
    "cheapest": {
-    "from": "2026-10-30T08:30Z",
-    "to": "2026-10-30T16:30Z",
-    "avgPrice": 35.29,
-    "avgCarbon": 201,
-    "score": 68,
-    "savingsVsAvgPct": 14
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.27,
+    "avgCarbon": 242,
+    "score": 50,
+    "savingsVsAvgPct": 0
    },
    "greenest": {
-    "from": "2026-10-30T08:30Z",
-    "to": "2026-10-30T16:30Z",
-    "avgPrice": 35.29,
-    "avgCarbon": 201,
-    "score": 68,
-    "savingsVsAvgPct": 14
+    "from": "2026-10-30T15:00Z",
+    "to": "2026-10-30T23:00Z",
+    "avgPrice": 47.27,
+    "avgCarbon": 242,
+    "score": 50,
+    "savingsVsAvgPct": 0
    }
   }
  },
  "series": [
   {
-   "from": "2026-10-30T08:30Z",
-   "to": "2026-10-30T09:00Z",
-   "price": 41.58,
-   "carbon": 240,
-   "score": 24,
-   "label": "poor"
-  },
-  {
-   "from": "2026-10-30T09:00Z",
-   "to": "2026-10-30T09:30Z",
-   "price": 35.45,
-   "carbon": 225,
-   "score": 46,
-   "label": "fair"
-  },
-  {
-   "from": "2026-10-30T09:30Z",
-   "to": "2026-10-30T10:00Z",
-   "price": 33.45,
-   "carbon": 206,
-   "score": 71,
-   "label": "good"
-  },
-  {
-   "from": "2026-10-30T10:00Z",
-   "to": "2026-10-30T10:30Z",
-   "price": 32.81,
-   "carbon": 196,
-   "score": 78,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T10:30Z",
-   "to": "2026-10-30T11:00Z",
-   "price": 31.81,
-   "carbon": 190,
-   "score": 85,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T11:00Z",
-   "to": "2026-10-30T11:30Z",
-   "price": 31.49,
-   "carbon": 184,
-   "score": 93,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T11:30Z",
-   "to": "2026-10-30T12:00Z",
-   "price": 31.49,
-   "carbon": 179,
-   "score": 96,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T12:00Z",
-   "to": "2026-10-30T12:30Z",
-   "price": 31.67,
-   "carbon": 177,
-   "score": 94,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T12:30Z",
-   "to": "2026-10-30T13:00Z",
-   "price": 32.48,
-   "carbon": 175,
-   "score": 91,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T13:00Z",
-   "to": "2026-10-30T13:30Z",
-   "price": 33.45,
-   "carbon": 178,
-   "score": 84,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T13:30Z",
-   "to": "2026-10-30T14:00Z",
-   "price": 33.68,
-   "carbon": 180,
-   "score": 77,
-   "label": "excellent"
-  },
-  {
-   "from": "2026-10-30T14:00Z",
-   "to": "2026-10-30T14:30Z",
-   "price": 33.84,
-   "carbon": 194,
-   "score": 71,
-   "label": "good"
-  },
-  {
-   "from": "2026-10-30T14:30Z",
-   "to": "2026-10-30T15:00Z",
-   "price": 34.18,
-   "carbon": 201,
-   "score": 66,
-   "label": "good"
-  },
-  {
    "from": "2026-10-30T15:00Z",
    "to": "2026-10-30T15:30Z",
    "price": 34.66,
-   "carbon": 219,
-   "score": 58,
-   "label": "good"
+   "carbon": 200,
+   "score": 100,
+   "label": "excellent"
   },
   {
    "from": "2026-10-30T15:30Z",
    "to": "2026-10-30T16:00Z",
    "price": 37.24,
-   "carbon": 234,
-   "score": 39,
-   "label": "fair"
+   "carbon": 229,
+   "score": 91,
+   "label": "excellent"
   },
   {
    "from": "2026-10-30T16:00Z",
    "to": "2026-10-30T16:30Z",
    "price": 55.32,
-   "carbon": 244,
-   "score": 14,
+   "carbon": 254,
+   "score": 33,
    "label": "poor"
   },
   {
    "from": "2026-10-30T16:30Z",
    "to": "2026-10-30T17:00Z",
    "price": 60.02,
-   "carbon": 244,
-   "score": 11,
+   "carbon": 258,
+   "score": 24,
    "label": "poor"
   },
   {
    "from": "2026-10-30T17:00Z",
    "to": "2026-10-30T17:30Z",
    "price": 60.88,
-   "carbon": 247,
-   "score": 0,
+   "carbon": 263,
+   "score": 5,
    "label": "poor"
   },
   {
    "from": "2026-10-30T17:30Z",
    "to": "2026-10-30T18:00Z",
    "price": 60.66,
-   "carbon": 239,
-   "score": 10,
+   "carbon": 268,
+   "score": 8,
    "label": "poor"
   },
   {
    "from": "2026-10-30T18:00Z",
    "to": "2026-10-30T18:30Z",
    "price": 60.66,
-   "carbon": 227,
-   "score": 14,
+   "carbon": 265,
+   "score": 11,
    "label": "poor"
   },
   {
    "from": "2026-10-30T18:30Z",
    "to": "2026-10-30T19:00Z",
    "price": 60.33,
-   "carbon": 223,
-   "score": 21,
+   "carbon": 257,
+   "score": 23,
    "label": "poor"
   },
   {
    "from": "2026-10-30T19:00Z",
    "to": "2026-10-30T19:30Z",
    "price": 47.11,
-   "carbon": 221,
-   "score": 31,
-   "label": "poor"
+   "carbon": 251,
+   "score": 40,
+   "label": "fair"
   },
   {
    "from": "2026-10-30T19:30Z",
    "to": "2026-10-30T20:00Z",
    "price": 45.99,
-   "carbon": 222,
-   "score": 32,
-   "label": "poor"
+   "carbon": 245,
+   "score": 47,
+   "label": "fair"
   },
   {
    "from": "2026-10-30T20:00Z",
    "to": "2026-10-30T20:30Z",
    "price": 42.5,
-   "carbon": 222,
-   "score": 34,
-   "label": "poor"
+   "carbon": 242,
+   "score": 53,
+   "label": "fair"
   },
   {
    "from": "2026-10-30T20:30Z",
    "to": "2026-10-30T21:00Z",
    "price": 39.27,
-   "carbon": 224,
-   "score": 34,
-   "label": "poor"
+   "carbon": 231,
+   "score": 68,
+   "label": "good"
   },
   {
    "from": "2026-10-30T21:00Z",
    "to": "2026-10-30T21:30Z",
    "price": 38.7,
-   "carbon": 227,
-   "score": 34,
-   "label": "poor"
+   "carbon": 237,
+   "score": 64,
+   "label": "good"
   },
   {
    "from": "2026-10-30T21:30Z",
    "to": "2026-10-30T22:00Z",
    "price": 38,
-   "carbon": 219,
-   "score": 47,
-   "label": "fair"
+   "carbon": 231,
+   "score": 76,
+   "label": "excellent"
   },
   {
    "from": "2026-10-30T22:00Z",
    "to": "2026-10-30T22:30Z",
    "price": 37.28,
-   "carbon": 214,
-   "score": 53,
-   "label": "fair"
+   "carbon": 232,
+   "score": 79,
+   "label": "excellent"
   },
   {
    "from": "2026-10-30T22:30Z",
    "to": "2026-10-30T23:00Z",
    "price": 37.64,
    "carbon": 205,
-   "score": 54,
-   "label": "fair"
+   "score": 85,
+   "label": "excellent"
   }
  ]
 }
